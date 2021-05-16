@@ -1,7 +1,0 @@
-spring:
-  activemq:
-    broker-url: http://activemq:61616
-    packages:
-      trust-all: true
-    password: ${MQ_PASSWORD}
-    user: ${MQ_USER}
