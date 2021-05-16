@@ -1,23 +1,31 @@
 package com.bridgingcode.springbootactivemqdemo.consumer.component;
 
-import com.bridgingcode.springbootactivemqdemo.model.SystemMessage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.bridgingcode.springbootactivemqdemo.dto.MessageSaveRequest;
+import com.bridgingcode.springbootactivemqdemo.service.MessageService;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
-/**
- *
- * @author AJ Catambay of Bridging Code
- *
- */
 @Component
+@Log4j2
 public class MessageConsumer {
+    @Autowired
+    private MessageService messageService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MessageConsumer.class);
-
-    @JmsListener(destination = "bridgingcode-queue")
-    public void messageListener(SystemMessage systemMessage) {
-        LOGGER.info("Message received! {}", systemMessage);
+    @JmsListener(destination = "queue1")
+    public void queue1Listener(MessageSaveRequest messageSaveRequest) {
+        messageService.SaveMessage(messageSaveRequest);
+        log.info("[MessageConsumer] Message arrived and saved {}", messageSaveRequest);
+    }
+    @JmsListener(destination = "queue2")
+    public void queue2Listener(MessageSaveRequest messageSaveRequest) {
+        messageService.SaveMessage(messageSaveRequest);
+        log.info("[MessageConsumer] Message arrived and saved {}", messageSaveRequest);
+    }
+    @JmsListener(destination = "queue3")
+    public void queue3Listener(MessageSaveRequest messageSaveRequest) {
+        messageService.SaveMessage(messageSaveRequest);
+        log.info("[MessageConsumer] Message arrived and saved {}", messageSaveRequest);
     }
 }
